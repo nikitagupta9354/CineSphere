@@ -25,7 +25,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
             password_validation.validate_password(value)
         except ValidationError as e:
             raise serializers.ValidationError(e.messages)
-        return password
+        return value
 
         
     def validate(self, attrs):
@@ -76,7 +76,7 @@ class ResetPasswordSerializer(serializers.ModelSerializer):
             password_validation.validate_password(value)
         except ValidationError as e:
             raise serializers.ValidationError(e.messages)
-        return new_password
+        return value
     
     def validate(self, attrs):
         new_password=attrs.get('new_password')

@@ -30,7 +30,7 @@ class Login(APIView):
                 request.session['otp'] = otp
                 request.session['otp_expiration']=time.time()+300
                 request.session['user_id'] = user.id
-                return Response({'Message':'SMS sent for authentication','Otp':otp},status=status.HTTP_200_OK)
+                return Response({'Message':'SMS sent for authentication','otp':otp},status=status.HTTP_200_OK)
             return Response({'Invalid credentials'},status=status.HTTP_401_UNAUTHORIZED)
         return Response(serializer.errors,status=status.HTTP_404_NOT_FOUND)
     
@@ -46,7 +46,7 @@ class VerifyOTP(APIView):
             return Response({"error": "OTP expired or invalid"}, status=400)
 
         
-        if entered_otp == int(stored_otp):
+        if entered_otp == str(stored_otp):
             token=get_tokens_for_user(user)
             return Response({'token':token,'Message':'Login successful'})
         else:
