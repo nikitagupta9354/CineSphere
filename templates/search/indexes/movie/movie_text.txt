@@ -1,0 +1,4 @@
+{{ object.description }}
+{% for actor in object.actors.all %}
+{{ actor.name }}
+{% endfor %}
