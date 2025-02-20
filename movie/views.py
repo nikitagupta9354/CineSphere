@@ -8,6 +8,7 @@ from .models import Movie
 from .permissions import IsReviewOwnerOrReadOnly,IsAdminModeratorOrReadOnly
 from .models import Movie, Review, Genre, Actor,Recommendation
 
+
 from rest_framework.pagination import PageNumberPagination
 from haystack.query import SearchQuerySet
 
@@ -109,7 +110,7 @@ class MovieSearch(APIView):
                 sqs = sqs.filter(genres=genre)
         
             if sort_by:
-                sqs = sqs.order_by(-sort_by)
+                sqs = sqs.order_by(f'-{sort_by}')
                 
                 
 

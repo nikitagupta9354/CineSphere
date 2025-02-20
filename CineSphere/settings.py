@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'movie',
     'haystack',
     'drf_haystack',
+    'notifications',
 ]
 
 HAYSTACK_CONNECTIONS = {
@@ -93,7 +95,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'CineSphere.wsgi.application'
-
+ASGI_APPLICATION = 'CineSphere.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -204,3 +206,19 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],  # Redis server configuration
+        },
+    },
+}
+
+#CELERY SETTINGS
+CELERY_BROKER_URL='redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT={'application/json'}
+CELERY_RESULT_SERIALIZER='json'
+CELERY_TIMEZONE='Asia/Kolkata'
+

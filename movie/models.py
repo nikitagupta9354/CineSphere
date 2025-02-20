@@ -9,8 +9,8 @@ class Genre(models.Model):
 
 class Actor(models.Model):
     name = models.CharField(max_length=255)
-    birth_date = models.DateField()
-    biography = models.TextField()
+    birth_date = models.DateField(blank=True, null=True)
+    biography = models.TextField(blank=True, null=True)
     profile_image = models.ImageField(upload_to='actors/profile_images/', blank=True, null=True)
     
     def __str__(self):
@@ -19,7 +19,7 @@ class Actor(models.Model):
 class Movie(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    release_date = models.DateField()
+    release_date = models.DateField(blank=True, null=True)
     rating = models.DecimalField(max_digits=3, decimal_places=1,blank=True, null=True)
     duration = models.PositiveIntegerField(help_text="Duration in minutes")
     poster_image = models.ImageField(upload_to='movies/posters/', blank=True, null=True)
